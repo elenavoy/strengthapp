@@ -1,9 +1,24 @@
-application: strengthapp
+application: strength-app
 version: 1
 runtime: python27
-api_version: 1
 threadsafe: true
+api_version: 1
 
 handlers:
-- url: /.*
-  script: strengthapp.app
+# Endpoints handler: Must be /_ah/spi. Apps send requests to /_ah/api, but these are handled at /_ah/spi!!
+- url: /_ah/spi/.*
+  script: strengthapp.APPLICATION
+- url: /js
+  static_dir: static/js
+- url: /bootstrap
+  static_dir: static/bootstrap
+- url: /
+  static_files: templates/index.html
+  upload: templates/index\.html
+
+libraries:
+- name: pycrypto
+  version: latest
+- name: endpoints
+  version: 1.0
+  
